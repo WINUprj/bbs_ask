@@ -1,0 +1,31 @@
+{% extends 'ask/base.html' %}
+
+{% block content %}
+    <div class="top-wrapper">
+        <div class="color-overlay"></div>
+        <h1>ASK</h1>
+        <p>~~「?」から「!」へ~~</p>
+    </div>
+    <div class="mid-wrapper">
+        <div class="explanation">
+            <h2>考える、分る。考える、分らない、質問する、分る。</h2>
+            <p>日本には世界を相手にできる多くの優秀な「IT人材」がいます。</p>
+            <p>が、何故か日本語による情報源が少なく、ビギナーが育ちにくい環境であることも事実です。</p>
+            <p>これは基本的にその「優秀なIT人材」による発信力が低い（または発信する意思が弱い）というのと、情報交換の為のインタラクティブなプラットフォームが少ないということに起因しています。</p>
+            <p>前者はツイッターなどのSNSの普及により改善されましたが、後者に関しては多くはないのが現状です。</p>
+            <p>海外ではstackoverflowやredditなどの掲示板がプログラミングなどの質問を気軽にできる場所になっています。</p>
+            <p>結果的にこれは初心者だけではなく、すでにスキルを持っている人たちの更なるスキルアップを促しています。</p>
+            <p>その様な場所を日本のユーザーに向けて作ろうと思い立ち、カナダの大学に在籍中の日本人学生がこの掲示板を立ち上げました。</p>
+        </div>
+    </div>
+    <div class="buttons">
+        <h2>ようこそ、始めよう。</h2>
+        {% if user.is_authenticated %}
+            <p>質問へ：<a href="{% url 'ask:question_list' %}" type="button" class="btn btn-info">スレッド一覧</a></p>
+        {% else %}
+            <p>登録が必要な方はこちら：<a href="{% url 'ask:signup' %}" type="button" class="btn btn-info">登録</a></p>
+            <p>すでにアカウントを持っている方はこちら：<a href="{% url 'ask:login' %}" type="button" class="btn btn-info">ログイン</a></p>
+            <p>投稿のみを閲覧したい方は<a href="{% url 'ask:question_list' %}">こちら</a></p>
+        {% endif %}
+    </div>
+{% endblock %}

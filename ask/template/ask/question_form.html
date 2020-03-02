@@ -1,0 +1,20 @@
+{% extends 'ask/base.html' %}
+
+{% block content %}
+<section class="section"> 
+    <form action="" method="POST" id="question-form">
+        <div class="text-danger">{{ form.non_field_errors }}</div>
+        {% for field in form %}
+            <div class="field">
+                <div class="mx-4">{{ field.label_tag }}</div> 
+                <div class="w-100">{{ field }}</div>
+                <div class="alert">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+        {% csrf_token %}
+        <br>
+        <button type="submit" class="btn btn-info">ASK</button>
+        <a href="{% url 'ask:question_list' %}" class="btn btn-link">Back</a>
+    </form>
+</section>
+{% endblock %}

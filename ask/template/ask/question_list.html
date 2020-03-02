@@ -1,0 +1,56 @@
+{% extends 'ask/base.html' %}
+{% load ask %}
+
+{% block content %}
+<section>
+    <div class="container" id="question-list-container">
+        <div class="right-side">
+            <form id="search-form" action="" method="GET">
+                {{ search_form.key_word }}
+                <button type="submit" id="search-btn">Search</button>
+            </form>
+        </div>
+        <div class="new-questions">
+            {% if user.is_authenticated %}
+                <h4>Ask your questions!: <a href="{% url 'ask:question_post' %}" type="button" class="btn btn-info">ASK!</a></h4>
+            {% endif %}
+        </div>
+        <br>
+        {% for question in question_list %}
+            <article class="post">
+                <div class="question">
+                    <h2 class="post-title"><a href="{% url 'ask:question_detail' question.pk %}">{{ question.title }}</a></h2>
+                    <div class="user-name">
+                        <p class="px-1">User: {{ question.user }}</p>
+                    </div>
+                    <div>
+                        <time class="updated-at" datetime="{{ post.posted_at | date:'Y-m-d' }}">Posted at: {{ question.posted_date }}</time>
+                    </div>
+                    <div>
+                        <time class="updated-at" datetime="{{ post.updated_at | date:'Y-m-d' }}">Updated at: {{ question.update_date }}</time>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <p class="post">No posts yet</p>
+        {% endfor %}
+    </div>
+</section>
+<nav id="page">
+    <div id="page-center">
+        {% if page_obj.has_previous %}
+            <a href="?{% replace_url request 'page' page_obj.previous_page_number %}" class="page-link" title="Back">
+                Back
+            </a>
+        {% endif %}
+
+        <span>{{ page_obj.number }}/{{page_obj.paginator.num_pages }} ({{ page_obj.paginator.count }} questions)</span>
+
+        {% if page_pbj.has_next %}
+            <a href="?{% replace_url request 'page' page_obj.next_page_number %}" class="page-link" title="Forward">
+                Forward
+            </a>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}

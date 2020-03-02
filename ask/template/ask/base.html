@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ASK!</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'ask/custom.css' %}">
+    </head>
+    <nav class="navbar navbar-inverse sticky-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{% url 'ask:home' %}" class="navbar-brand">ASK</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    <li><span class="navbar-text font-size: 15px;">Welcome, {{ user.username }}</span></li>
+                    <li><a href="{% url 'ask:logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'ask:signup' %}"><span class="glyphicon glyphicon-user"></span>Sign up</a></li>
+                    <li><a href="{% url 'ask:login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+                    <li><a href="{% url 'ask:question_list' %}"><span class="glyphicon glyphicon-expand"></span>登録なしで閲覧</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <body>
+        <div class="container">
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+    <footer class="footer">
+        <div class="container">
+            <p>Site Administrator</p>
+            <p>Haruto Tanaka (WINU)</p>
+            <p>Contact: harutornof@gmail.com</p>
+        </div>
+        <!-- <p class="text-left text-md-left">Special thanks to: </p><a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href="https://unsplash.com/@ilyapavlov?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Ilya Pavlov">
+            <span style="display:inline-block;padding:2px 3px">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32">
+                    <title>unsplash-logo</title>
+                    <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path>
+                </svg>
+            </span>
+            <span style="display:inline-block;padding:2px 3px">Ilya Pavlov</span>
+        </a> -->
+    </footer>
+</html>

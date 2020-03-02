@@ -1,0 +1,41 @@
+{% extends 'ask/base.html' %}
+
+{% block content %}
+<section class="section"> 
+    <div class="container">
+        <a type="button" class="btn btn-info" href="{% url 'ask:question_list' %}">Back</a>
+
+        <h1 class="title">{{ question.title }}</h1>
+        <hr>
+        <div class="question-detail">
+            <p>{{ question.question | linebreaks }}</p>
+        </div>
+        <a href="{% url 'ask:comment_create' question.pk %}" target="" rel="nofollow" class="btn btn-info">Comment</a>
+        <hr>
+        <section id="comment">
+            <h3 class="title">Comments</h3>
+            {% for comment in question.comment_set.all %}
+                <div class="comment">
+                    <h3 class="color:blue;">{{ comment.user }}</h3>
+                    <div class="description markdown-body">{{ comment.text }}</div>
+                    <br>
+                    <a href="{% url 'ask:reply_create' comment.pk %}" target="" rel="nofollow" class="btn btn-info">Reply</a>
+                </div>
+                <hr>
+                {% for reply in comment.reply_set.all %}
+                    <div class="reply">
+                        <h4>{{ reply.name }}</h4>
+                        <div class="description">
+                            {{ reply.text }}
+                        </div>
+                        <time datetime="{{ reply.created_at | date:'Y-m-d' }}">{{ reply.created_at }}</time>
+                        <hr>
+                    </div>
+                {% endfor %}
+                {% empty %}
+                    <p>No comments yet.</p>
+            {% endfor %}
+        </section>
+    </div>  
+</section>
+{% endblock %}

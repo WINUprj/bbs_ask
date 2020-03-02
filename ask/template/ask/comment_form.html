@@ -1,0 +1,21 @@
+{% extends 'ask/base.html' %}
+
+{% block content %}
+<section class="section">
+    <form action="" method="POST" id="comment-form">
+        <div class="text-danger">{{ form.non_field_errors }}</div>
+        {% for field in form %}
+            <div class="field">
+                <div class="mt-3">{{ field.label_tag }}</div>
+                <div class="w-25">{{ field }}</div>
+                <div class="alert">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+        {% csrf_token %}
+        
+        <br>
+        <button type="submit" class="btn-link">Submit</button>
+        <a href="{% url 'ask:question_detail' question.pk %}" class="btn btn-link">Go back without commenting</a>
+    </form>
+</section>
+{% endblock %}
