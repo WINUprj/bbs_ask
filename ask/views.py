@@ -99,3 +99,8 @@ class QuestionPost(LoginRequiredMixin, generic.CreateView):
     form_class = QuestionCreateForm
     template_name = 'ask/question_form.html'
     success_url = reverse_lazy('ask:question_list')
+
+
+class QuestionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    template_name = 'ask/question_delete.html'
+    success_url = reverse_lazy('ask:question_list')

@@ -6,6 +6,11 @@
         <a type="button" class="btn btn-info" href="{% url 'ask:question_list' %}">Back</a>
 
         <h1 class="title">{{ question.title }}</h1>
+        {% if user.is_authenticated %}
+            <div class="delete-link">
+                <a href="{% url 'ask:question_elete' %}" type="link">Delete</a>
+            </div>
+        {% endif %}
         <hr>
         <div class="question-detail">
             <p>{{ question.question | linebreaks }}</p>

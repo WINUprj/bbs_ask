@@ -13,6 +13,7 @@ urlpatterns = [
     path('post/', views.QuestionPost.as_view(), name='question_post'),
     path('comment/create/<int:pk>/', views.CommentCreation.as_view(), name='comment_create'),
     path('reply/create/<int:pk>/', views.ReplyCreation.as_view(), name='reply_create'),
+    #path('<int:pk>/delete/', views.QuestionDeleteView.as_view(), name='question_delete'),
 
     path('login/', auth_views.LoginView.as_view(template_name='ask/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='ask/home.html'), name='logout'),
